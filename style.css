@@ -34,3 +34,9 @@ body {
     background-color: red;
     border-top-right-radius: 100%;
 }
+
+.yellow {
+    grid-area: amarelo;
+    background-color: yellow;
+    border-bottom-left-radius: 100%;
+}
