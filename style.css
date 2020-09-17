@@ -22,3 +22,9 @@ body {
     width: 700px;
     height: 700px;
 }
+
+.blue {
+    grid-area: azul;
+    background-color: blue;
+    border-bottom-right-radius: 100%;
+}
