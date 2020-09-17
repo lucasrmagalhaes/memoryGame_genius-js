@@ -40,3 +40,9 @@ body {
     background-color: yellow;
     border-bottom-left-radius: 100%;
 }
+
+.green {
+    grid-area: verde;
+    background-color: green;
+    border-top-left-radius: 100%;
+}
