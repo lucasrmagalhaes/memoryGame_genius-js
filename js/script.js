@@ -11,13 +11,14 @@ let score = 0; // Para saber quando errou.
   */
 
 // Selecionando as cores do HTML.
-const blue = document.querySelector('.blue');
-const red = document.querySelector('.red');
 const green = document.querySelector('green');
+const red = document.querySelector('.red');
 const yellow = document.querySelector('yellow');
+const blue = document.querySelector('.blue');
 
 // Sortea números entre 0 e 3. Cria ordem aleatória de cores.
 let shuffleOrder = () => {
+
     let colorOrder = Math.floor(Math.random() * 4);
     order[order.length] = colorOrder;
     clickedOrder = [];
@@ -27,10 +28,12 @@ let shuffleOrder = () => {
         let elementColor = createColorElement(order[i]);
         lightColor(elementColor, Number(i) + 1);
     }
+
 }
 
 // Acende a próxima cor.
 let lightColor = (element, number) => {
+
     number = number * 500;
     
     setTimeout(() => {
@@ -40,31 +43,85 @@ let lightColor = (element, number) => {
     setTimeout(() => {
         element.classList.remove('selected');
     });
+
 }
 
 // Checa se as cores selecionadas são as mesmas da ordem gerada no jogo.
 let checkOrder = () => {
+
     for(let i in clickedOrder) {
         if(clickedOrder[i] != order[i]) {
-            lose();
+            gameOver();
             break;
         }
     }
 
     if(clickedOrder.length == order.length) {
-        alert(`Pontuação: ${score} \n Você acertou! Iniciando próximo nível!`);
+        alert(`Pontuação: ${score}\nVocê acertou! Iniciando próximo nível!`);
         nextLevel();
     }
+
 }
 
 // Clique do jogador.
 let click = (color) => {
+
     clickedOrder[clickedOrder.length] = color;
     createColorElement(color).classList.add('selected');
 
     setTimeout(() => {
-        elementColor(color).classList.remove('selected');
-    })
+        createColorElement(color).classList.remove('selected');
+        checkOrder();
+    }, 250);
 
-    checkOrder();
 }
+
+// Retorna a cor.
+let createColorElement = (color) => {
+
+    if(color == 0) {
+        return green;
+    } else if (color == 1) {
+        return red;
+    } else if (color == 2) {
+        return yellow;
+    } else if (color == 3) {
+        return blue;
+    }
+
+}
+
+// Próximo nível.
+let nextLevel = () => {
+
+    score++;
+    shuffleOrder();
+
+}
+
+// Game Over.
+let gameOver = () => {
+
+    alert(`Pontuação: ${score}!\nVocê perdeu!\nClique em OK para jogar novamente.`);
+    order = [];
+    clickedOrder = [];
+    playGame();
+
+}
+
+// Início do Game.
+let playGame = () => {
+
+    alert('Bem-vindo ao Gênesis! Iniciando a partida!');
+    score = 0;
+    nextLevel();
+
+}
+
+// Ativa os cliques das cores.
+green.addEventListener('click', click(0));
+red.addEventListener('click', click(1));
+yellow.addEventListener('click', click(2));
+blue.addEventListener('click', click(3));
+
+playGame();
